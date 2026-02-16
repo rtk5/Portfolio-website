@@ -9,8 +9,9 @@ const roles = [
   'software engineer',
   'CTF creator',
   'ML enthusiast',
-  'cybersecurity researcher',
-  'full-stack developer'
+  'Applied Machine Learning Engineer',
+  'full-stack developer',
+  'Tech Innovator'
 ];
 
 const quickActions = [

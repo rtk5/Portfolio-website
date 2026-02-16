@@ -34,7 +34,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    url: 'mailto:rithvikmatta@example.com',
+    url: 'mailto:rithvikmatta@gmail.com',
     icon: Mail,
     ascii: '📧 Mail',
     color: 'text-cyber-green',
@@ -90,36 +90,52 @@ export default function ContactPage() {
   }, [currentLine, isMounted]);
 
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Add success message to terminal
-      setTerminalOutput(prev => [
-        ...prev,
-        '',
-        '> echo "Message sent successfully!" > /dev/email',
-        '> Message transmitted to secure server ✓',
-        '> Response time: < 24 hours',
-        '> Thank you for reaching out!',
-      ]);
-      
-      toast.success('Message sent successfully!');
-      form.reset();
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-      setTerminalOutput(prev => [
-        ...prev,
-        '',
-        '> ERROR: Message transmission failed',
-        '> Please try alternative communication channels',
-      ]);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  setIsSubmitting(true);
+
+  try {
+    const res = await fetch(
+      "https://formsubmit.co/ajax/rithvik.matta@gmail.com",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          _captcha: "false",
+          _template: "table",
+        }),
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed");
+
+    // Terminal success animation
+    setTerminalOutput((prev) => [
+      ...prev,
+      "",
+      '> echo "Message sent successfully!" > /dev/email',
+      "> Message transmitted to secure server ✓",
+      "> Response time: < 24 hours",
+      "> Thank you for reaching out!",
+    ]);
+
+    toast.success("Message sent successfully!");
+    form.reset();
+  } catch (error) {
+    toast.error("Failed to send message. Please try again.");
+    setTerminalOutput((prev) => [
+      ...prev,
+      "",
+      "> ERROR: Message transmission failed",
+      "> Please try alternative communication channels",
+    ]);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen pt-20 px-4">
