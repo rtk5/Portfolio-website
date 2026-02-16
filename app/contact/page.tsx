@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Github, Linkedin, Mail, MapPin, QrCode } from 'lucide-react';
@@ -79,7 +78,6 @@ export default function ContactPage() {
 
   useEffect(() => {
     if (!isMounted) return;
-
     if (currentLine < terminalLines.length) {
       const timer = setTimeout(() => {
         setTerminalOutput(prev => [...prev, terminalLines[currentLine]]);
@@ -90,52 +88,47 @@ export default function ContactPage() {
   }, [currentLine, isMounted]);
 
   const onSubmit = async (data: FormData) => {
-  setIsSubmitting(true);
-
-  try {
-    const res = await fetch(
-      "https://formsubmit.co/ajax/31c49057e6d8647174622f6374f75cd4",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          _captcha: "false",
-          _template: "table",
-        }),
-      }
-    );
-
-    if (!res.ok) throw new Error("Failed");
-
-    // Terminal success animation
-    setTerminalOutput((prev) => [
-      ...prev,
-      "",
-      '> echo "Message sent successfully!" > /dev/email',
-      "> Message transmitted to secure server ✓",
-      "> Response time: < 24 hours",
-      "> Thank you for reaching out!",
-    ]);
-
-    toast.success("Message sent successfully!");
-    form.reset();
-  } catch (error) {
-    toast.error("Failed to send message. Please try again.");
-    setTerminalOutput((prev) => [
-      ...prev,
-      "",
-      "> ERROR: Message transmission failed",
-      "> Please try alternative communication channels",
-    ]);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(
+        "https://formsubmit.co/ajax/31c49057e6d8647174622f6374f75cd4",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            ...data,
+            _captcha: "false",
+            _template: "table",
+          }),
+        }
+      );
+      if (!res.ok) throw new Error("Failed");
+      // Terminal success animation
+      setTerminalOutput((prev) => [
+        ...prev,
+        "",
+        '> echo "Message sent successfully!" > /dev/email',
+        "> Message transmitted to secure server ✓",
+        "> Response time: < 24 hours",
+        "> Thank you for reaching out!",
+      ]);
+      toast.success("Message sent successfully!");
+      form.reset();
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+      setTerminalOutput((prev) => [
+        ...prev,
+        "",
+        "> ERROR: Message transmission failed",
+        "> Please try alternative communication channels",
+      ]);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen pt-20 px-4">
@@ -279,40 +272,33 @@ export default function ContactPage() {
                 {showQR ? 'Hide' : 'Show'} vCard QR
               </button>
               
-            {showQR && (() => {
-              const vCardData = `BEGIN:VCARD
-            VERSION:3.0
-            N:Matta;Rithvik;;;
-            FN:Rithvik Matta
-            TITLE:Software Engineer
-            EMAIL;TYPE=INTERNET:rithvik.matta@gmail.com
-            URL:https://rithvikmatta.netlify.app
-            END:VCARD`;
-
-              return (
-                <motion.div
-                  className="mt-4 p-4 bg-cyber-charcoal rounded-lg border border-cyber-gray"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img
-                    className="w-32 h-32 mx-auto rounded bg-white p-2"
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(vCardData)}`}
-                    alt="vCard QR"
-                  />
-                  <p className="text-cyber-gray font-mono text-xs mt-2 text-center">
-                    Scan to add contact info
-                  </p>
-                </motion.div>
-              );
-            })()}
-
-                  <p className="text-cyber-gray font-mono text-xs mt-2">
-                    Scan to add contact info
-                  </p>
-                </motion.div>
-              )}
+              {showQR && (() => {
+                const vCardData = `BEGIN:VCARD
+VERSION:3.0
+N:Matta;Rithvik;;;
+FN:Rithvik Matta
+TITLE:Software Engineer
+EMAIL;TYPE=INTERNET:rithvikmatta@gmail.com
+URL:https://rithvikmatta.netlify.app
+END:VCARD`;
+                return (
+                  <motion.div
+                    className="mt-4 p-4 bg-cyber-charcoal rounded-lg border border-cyber-gray"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      className="w-32 h-32 mx-auto rounded bg-white p-2"
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(vCardData)}`}
+                      alt="vCard QR"
+                    />
+                    <p className="text-cyber-gray font-mono text-xs mt-2 text-center">
+                      Scan to add contact info
+                    </p>
+                  </motion.div>
+                );
+              })()}
             </motion.div>
           </motion.div>
 
