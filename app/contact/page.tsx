@@ -94,7 +94,7 @@ export default function ContactPage() {
 
   try {
     const res = await fetch(
-      "https://formsubmit.co/ajax/rithvik.matta@gmail.com",
+      "https://formsubmit.co/ajax/31c49057e6d8647174622f6374f75cd4",
       {
         method: "POST",
         headers: {
@@ -316,7 +316,7 @@ export default function ContactPage() {
             <div className="terminal-content">
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="font-mono text-sm text-cyber-secondary mb-4">
-                  $ ./send-secure-message --to=rithvik@portfolio.dev
+                  $ ./send-secure-message ---------------------
                 </div>
 
                 <div className="space-y-4">
