@@ -279,7 +279,17 @@ export default function ContactPage() {
                 {showQR ? 'Hide' : 'Show'} vCard QR
               </button>
               
-              {showQR && (
+            {showQR && (() => {
+              const vCardData = `BEGIN:VCARD
+            VERSION:3.0
+            N:Matta;Rithvik;;;
+            FN:Rithvik Matta
+            TITLE:Software Engineer
+            EMAIL;TYPE=INTERNET:rithvik.matta@gmail.com
+            URL:https://rithvikmatta.netlify.app
+            END:VCARD`;
+
+              return (
                 <motion.div
                   className="mt-4 p-4 bg-cyber-charcoal rounded-lg border border-cyber-gray"
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -288,17 +298,15 @@ export default function ContactPage() {
                 >
                   <img
                     className="w-32 h-32 mx-auto rounded bg-white p-2"
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`
-                  BEGIN:VCARD
-                  VERSION:3.0
-                  FN:Rithvik Matta
-                  EMAIL:rithvik.matta@gmail.com
-                  URL:https://rithvikmatta.netlify.app
-                  TITLE:Software Engineer
-                  END:VCARD
-                  `)}`}
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(vCardData)}`}
                     alt="vCard QR"
                   />
+                  <p className="text-cyber-gray font-mono text-xs mt-2 text-center">
+                    Scan to add contact info
+                  </p>
+                </motion.div>
+              );
+            })()}
 
                   <p className="text-cyber-gray font-mono text-xs mt-2">
                     Scan to add contact info
