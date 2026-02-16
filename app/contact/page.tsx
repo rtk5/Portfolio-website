@@ -278,7 +278,7 @@ VERSION:3.0
 N:Matta;Rithvik;;;
 FN:Rithvik Matta
 TITLE:Software Engineer
-EMAIL;TYPE=INTERNET:rithvikmatta@gmail.com
+EMAIL;TYPE=HOME:rithvikmatta@gmail.com
 URL:https://rithvikmatta.netlify.app
 END:VCARD`;
                 return (
