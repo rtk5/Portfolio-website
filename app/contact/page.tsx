@@ -286,9 +286,20 @@ export default function ContactPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="w-32 h-32 mx-auto bg-white rounded flex items-center justify-center">
-                    <span className="text-cyber-dark font-mono text-xs">QR_CODE</span>
-                  </div>
+                  <img
+                    className="w-32 h-32 mx-auto rounded bg-white p-2"
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`
+                  BEGIN:VCARD
+                  VERSION:3.0
+                  FN:Rithvik Matta
+                  EMAIL:rithvik.matta@gmail.com
+                  URL:https://rithvikmatta.netlify.app
+                  TITLE:Software Engineer
+                  END:VCARD
+                  `)}`}
+                    alt="vCard QR"
+                  />
+
                   <p className="text-cyber-gray font-mono text-xs mt-2">
                     Scan to add contact info
                   </p>
